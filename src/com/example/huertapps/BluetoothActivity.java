@@ -1,19 +1,27 @@
 package com.example.huertapps;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Set;
+
+import com.example.controllers.ConnectThread;
 
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,9 +31,11 @@ public class BluetoothActivity extends Activity {
 	private ListView list_bt;
 	private Set<BluetoothDevice>pairedDevices;
 	private  ArrayAdapter<String> btArrayPaired;
+	private  ConnectThread thread;
 	private BroadcastReceiver myReceiver= new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-            Message msg = Message.obtain();
+        	Iterator<BluetoothDevice> it=pairedDevices.iterator();
+        	Message msg = Message.obtain();
             String action = intent.getAction();
             if(BluetoothDevice.ACTION_FOUND.equals(action)){
                 Toast.makeText(context, "ACTION_FOUND", Toast.LENGTH_SHORT).show();
@@ -49,29 +59,29 @@ public class BluetoothActivity extends Activity {
                 }
             
                    
-                   /*else
+                   else
                    {
                        boolean flag = true;    // flag to indicate that particular device is already in the arlist or not
-                       for(int i = 0; i<pairedDevices.size();i++)
-                       {
-                           if(device.getAddress().equals(pairedDevices.get(i).getAddress()))
+                       while(it.hasNext())
+                      {
+                           if(device.getAddress().equals(it.next().getAddress()))
                            {
                                flag = false;
                            }
-                       }
+                       
                        if(flag == true)
                        {
                            btArrayPaired.add(device.getName());
                            btArrayPaired.notifyDataSetChanged();
                 }
+                      }
             }
             list_bt.setAdapter(btArrayPaired);
-            }*/
+            }
         }
-        }
+        };
                 
-            };
-            
+                        
         
             
             
@@ -127,10 +137,52 @@ protected void onCreate(Bundle savedInstanceState) {
 	        list_bt.setAdapter(btArrayPaired);
 	        //BA.notifyDataSetChanged();
 	    }
-	}
-
-
-	 
 	
+
+public void onClick(View view){
+	 
+	list_bt.setOnItemSelectedListener(new OnItemSelectedListener() {
+        
+      
+		
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Object device;
+			CharSequence text = "Hello toast!";
+			   int duration = Toast.LENGTH_SHORT;
+			   Context context = null ;
+
+			device = list_bt.getItemAtPosition(arg2);
+			
+			if(device instanceof BluetoothDevice ){
+			
+				thread=new ConnectThread((BluetoothDevice) device); 
+				thread.run();
+				Toast toast = Toast.makeText(context, text, duration);
+				   toast.show();
+				 
+			}
+		}
+		
+		
+			
+			
+			
+			// TODO Auto-generated method stub
+			
+		
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
+		
+	
+		
+});
+}	 
+}
 		
         

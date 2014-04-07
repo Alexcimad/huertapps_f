@@ -6,6 +6,8 @@ import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.widget.Toast;
 
 
 public class ConnectThread extends Thread{
@@ -27,11 +29,16 @@ public class ConnectThread extends Thread{
 	   public void run() {
 		   BA=BluetoothAdapter.getDefaultAdapter();
 		   BA.cancelDiscovery();
+		   
+		  
+		   
 	       try {
 	           mmSocket.connect();
+	           
 	       } catch (IOException connectException) {
 	           try {
 	               mmSocket.close();
+	               
 	           } catch (IOException closeException) { }
 	           return;
 	       }
