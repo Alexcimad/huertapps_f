@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.example.controllers.ConnectThread;
+import com.example.service.ConnectThread;
 
 
 import android.app.Activity;
@@ -21,6 +21,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -71,7 +72,7 @@ public class BluetoothActivity extends Activity {
                        
                        if(flag == true)
                        {
-                           btArrayPaired.add(device.getName());
+                           btArrayPaired.add(device.toString()+ "\n" + device.getAddress());
                            btArrayPaired.notifyDataSetChanged();
                 }
                       }
@@ -118,7 +119,26 @@ protected void onCreate(Bundle savedInstanceState) {
 		  
 		  
 		  Set<BluetoothDevice> pairedDevices = BA.getBondedDevices();
-		  
+		  list_bt.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+						long arg3) {
+					// TODO Auto-generated method stub
+					BluetoothDevice device= BluetoothAdapter.getDefaultAdapter().getRemoteDevice("44:6D:57:C2:3A:5A");
+					
+					thread=new ConnectThread(getApplicationContext(),device); 
+					thread.start();
+					
+					Intent register_intent = new Intent( getApplicationContext(), Menuactivity.class );
+		            startActivity( register_intent );
+		            finish();		 
+					
+				}
+
+				
+				
+			
+				
+		});
 
 		  }
 		 
@@ -130,7 +150,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	        {
 	            for(BluetoothDevice device : pairedDevices)
 	            {
-	            	btArrayPaired.add(device.getName());
+	            	btArrayPaired.add(device.toString()+ "\n" + device.getAddress());
 	                //arrayListPairedBluetoothDevices.add(device);
 	            }
 	        }
@@ -139,50 +159,14 @@ protected void onCreate(Bundle savedInstanceState) {
 	    }
 	
 
-public void onClick(View view){
+	 @Override
+	 protected void onStop()
+	 {
+	     unregisterReceiver(myReceiver);
+	     super.onStop();
+	 }
 	 
-	list_bt.setOnItemSelectedListener(new OnItemSelectedListener() {
-        
-      
-		
-		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			Object device;
-			CharSequence text = "Hello toast!";
-			   int duration = Toast.LENGTH_SHORT;
-			   Context context = null ;
-
-			device = list_bt.getItemAtPosition(arg2);
-			
-			if(device instanceof BluetoothDevice ){
-			
-				thread=new ConnectThread((BluetoothDevice) device); 
-				thread.run();
-				Toast toast = Toast.makeText(context, text, duration);
-				   toast.show();
-				 
-			}
-		}
-		
-		
-			
-			
-			
-			// TODO Auto-generated method stub
-			
-		
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		
-		
 	
-		
-});
 }	 
-}
-		
+	
         
