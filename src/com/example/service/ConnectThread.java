@@ -9,11 +9,9 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
 
 public class ConnectThread extends Thread{
-	
+	private static final String TAG = "MyActivity";
 	private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	private final BluetoothSocket mmSocket;
 	private final BluetoothDevice mmDevice;
@@ -26,8 +24,10 @@ public class ConnectThread extends Thread{
 	       
 	    
 	       try {
-	           tmp = mmDevice.createRfcommSocketToServiceRecord(MY_UUID);
-	       } catch (IOException e) { }
+	    	   Method m = device.getClass().getMethod("createRfcommSocket", new Class[] {int.class});
+              tmp = (BluetoothSocket) m.invoke(device, Integer.valueOf(1));
+              Log.v(TAG, "conected");
+	       } catch (Exception e) { }
 	       mmSocket = tmp;
 	   }
 
