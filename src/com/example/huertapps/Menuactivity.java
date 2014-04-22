@@ -9,6 +9,7 @@ import java.util.Arrays;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class Menuactivity extends Activity {
   
@@ -20,7 +21,7 @@ public class Menuactivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.menu);
-    
+    Toast.makeText(getApplicationContext(), "APLICACION_CONECTADA", Toast.LENGTH_LONG).show();
     
     //setContentView(R.layout.menu);
 	  //super.onCreate(savedInstanceState);

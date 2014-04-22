@@ -73,7 +73,7 @@ public class BluetoothActivity extends Activity {
                        
                        if(flag == true)
                        {
-                           btArrayPaired.add(device.toString()+ "\n" + device.getAddress());
+                           btArrayPaired.add(device.getName()+ "\n" + device.getAddress());
                            btArrayPaired.notifyDataSetChanged();
                 }
                       }
