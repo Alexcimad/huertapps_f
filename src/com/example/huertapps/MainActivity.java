@@ -8,7 +8,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
