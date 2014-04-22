@@ -15,15 +15,18 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:contentDescription="TODO"
         android:src="@drawable/logo" />
+    
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_alignTop="@+id/imageView1"
-        android:scaleType="fitStart"
+        android:layout_above="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="33dp"
+        android:contentDescription="TODO"
         android:src="@drawable/bienvenue" />
 
 </RelativeLayout>
