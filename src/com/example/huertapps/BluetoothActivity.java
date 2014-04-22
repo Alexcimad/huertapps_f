@@ -25,6 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BluetoothActivity extends Activity {
@@ -54,7 +55,7 @@ public class BluetoothActivity extends Activity {
 
                 if(pairedDevices.size()<1) // this checks if the size of bluetooth device is 0,then add the
                 {                                           // device to the arraylist.
-                    btArrayPaired.add(device.getName());
+                    btArrayPaired.add(device.getName()+"\n" + device.getAddress());
                    btArrayPaired.notifyDataSetChanged();
                    list_bt.setAdapter(btArrayPaired);
                 }
@@ -120,10 +121,16 @@ protected void onCreate(Bundle savedInstanceState) {
 		  
 		  Set<BluetoothDevice> pairedDevices = BA.getBondedDevices();
 		  list_bt.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				public void onItemClick(AdapterView<?> av, View v, int arg2,
 						long arg3) {
 					// TODO Auto-generated method stub
-					BluetoothDevice device= BluetoothAdapter.getDefaultAdapter().getRemoteDevice("44:6D:57:C2:3A:5A");
+					BA.cancelDiscovery();
+
+		            // Get the device MAC address, which is the last 17 chars in the View
+		            String info = ((TextView) v).getText().toString();
+		            String address = info.substring(info.length() - 17);
+
+					BluetoothDevice device= BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
 					
 					thread=new ConnectThread(getApplicationContext(),device); 
 					thread.start();
