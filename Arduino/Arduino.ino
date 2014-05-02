@@ -20,6 +20,8 @@ int humedadSuelo = 0;
 void setup() {
 	Serial.begin(9600);
 	dht.setup(8); // data pin 8
+ pinMode(sensorPin, INPUT);
+
 }
 
 void loop() {
