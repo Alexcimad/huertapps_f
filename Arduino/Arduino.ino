@@ -21,10 +21,11 @@ SoftwareSerial BT(RxD, TxD);
 
 int sensorPin = A0;    // select the input pin for the potentiometer
 int humedadSuelo = 0;
+int promedio = 0;
 
 void setup() {
   BT.begin(9600);
-  BT.println("Bluetooth On please press 1 or 0 blink LED ..");
+  //BT.println("Bluetooth On please press 1 or 0 blink LED ..");
   pinMode(sensorPin,INPUT);
 }
 
@@ -33,23 +34,60 @@ void loop() {
 	BT.println(String(pedirHumedadSuelo()));
 	delay(2000);
 
-	// char command = BT.read();
- //    BT.flush();
- //    Serial.println(command);
-    
- //    // En caso de que el caracter recibido sea "L" cambiamos
- //    // El estado del LED
- //    if (command == 'L'){
- //      Serial.println("Toggle LED");
- //      toggle(LED);
- //    }
+	char comando = BT.read();
+    BT.flush();
 
+    //Baja Humedad
+    if (comando == 'B'){
+      Serial.println("Comenzando Riego para baja humedad");
+      	promedio = ((secoAlto+secoBajo)/2)-1;
+      	while (promedio < (secoAlto+secoBajo)/2){
+      		regar();
+      		promedio = calcularPromedio();
+      	}
+      Serial.println("terminando Riego para baja humedad");
+    }
+
+    if (comando == 'N'){
+      Serial.println("Comenzando Riego para humedad normal ");
+      promedio = ideal - 1;
+      while ( promedio < ideal){
+      		regar();
+      		promedio = calcularPromedio();
+      	}
+      Serial.println("terminando Riego para humedad normal ");
+    }
+
+    if (comando == 'A'){
+      Serial.println("Comenzando Riego para alta humedad");
+      promedio = ((mojadoAlto+mojadoBajo)/2)-1;
+      while (promedio < (mojadoAlto+mojadoBajo)/2){
+      		regar();
+      		promedio = calcularPromedio();
+      	}
+      Serial.println("terminando Riego para alta humedad");
+	}
 }
-
 
 int pedirHumedadSuelo(){ 
 	return analogRead(sensorPin);
+}
 
+void regar(){
+
+}
+
+int calcularPromedio(){
+	int medida = pedirHumedadSuelo();
+	delay (1000); 
+	medida += pedirHumedadSuelo();
+	delay (1000);  
+	medida += pedirHumedadSuelo();
+	delay (1000);  
+	medida += pedirHumedadSuelo();
+	delay (1000);  
+	medida += pedirHumedadSuelo();
+	return medida/ 5;
 }
 
 
