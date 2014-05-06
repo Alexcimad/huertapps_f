@@ -2,7 +2,7 @@
 #include <SoftwareSerial.h>
 #include "SPI.h"
 #include <EEPROM.h>
-#include "DHT.h"
+
 
 #define secoBajo 0
 #define secoAlto 300
