@@ -11,38 +11,48 @@
 #define mojadoBajo 701
 #define mojadoAlto 950
 #define ideal 550
+#define RxD 10
+#define TxD 11
+#define RST 5
+#define KEY 4
 
-DHT dht;
+SoftwareSerial BT(RxD, TxD);
+
 
 int sensorPin = A0;    // select the input pin for the potentiometer
 int humedadSuelo = 0;
 
 void setup() {
-	Serial.begin(9600);
-	dht.setup(8); // data pin 8
- pinMode(sensorPin, INPUT);
-
+  BT.begin(9600);
+  BT.println("Bluetooth On please press 1 or 0 blink LED ..");
+  pinMode(sensorPin,INPUT);
 }
 
 void loop() {
+	
+	BT.println(String(pedirHumedadSuelo()));
+	delay(2000);
+
+	// char command = BT.read();
+ //    BT.flush();
+ //    Serial.println(command);
+    
+ //    // En caso de que el caracter recibido sea "L" cambiamos
+ //    // El estado del LED
+ //    if (command == 'L'){
+ //      Serial.println("Toggle LED");
+ //      toggle(LED);
+ //    }
 
 }
 
 
 int pedirHumedadSuelo(){ 
 	return analogRead(sensorPin);
-}
-
-float pedirHumedadRelativa(){
-	delay(dht.getMinimumSamplingPeriod());
-	return dht.getHumidity();
 
 }
 
-float pedirTemperaturaAmbiente(){
-	delay(dht.getMinimumSamplingPeriod());
-	return dht.getTemperature();
-}
+
 
 
 
