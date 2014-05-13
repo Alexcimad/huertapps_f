@@ -19,7 +19,8 @@
 SoftwareSerial BT(RxD, TxD);
 
 
-int sensorPin = A0;    // select the input pin for the potentiometer
+int sensorPin = A0; 
+int LedPin=12;// select the input pin for the potentiometer
 int humedadSuelo = 0;
 int promedio = 0;
 
@@ -27,6 +28,7 @@ void setup() {
   BT.begin(9600);
   //BT.println("Bluetooth On please press 1 or 0 blink LED ..");
   pinMode(sensorPin,INPUT);
+  pinMode(LedPin,OUTPUT);
 }
 
 void loop() {
@@ -38,13 +40,14 @@ void loop() {
     BT.flush();
 
     //Baja Humedad
-    if (comando == 'B'){
+    if (comando == '1'){
       Serial.println("Comenzando Riego para baja humedad");
       	promedio = ((secoAlto+secoBajo)/2)-1;
       	while (promedio < (secoAlto+secoBajo)/2){
       		regar();
       		promedio = calcularPromedio();
       	}
+      regar();
       Serial.println("terminando Riego para baja humedad");
     }
 
@@ -74,7 +77,10 @@ int pedirHumedadSuelo(){
 }
 
 void regar(){
-
+digitalWrite(LedPin,LOW);
+delay(300);
+digitalWrite(LedPin,HIGH);
+delay(300);
 }
 
 int calcularPromedio(){

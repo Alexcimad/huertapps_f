@@ -80,6 +80,7 @@ public final class R {
         public static final int hello_world=0x7f050001;
         public static final int none_found=0x7f05000d;
         public static final int none_paired=0x7f05000b;
+        public static final int not_connected=0x7f050013;
         public static final int scanning=0x7f05000c;
         public static final int select_device=0x7f05000e;
         public static final int title_activity_conexion=0x7f050003;

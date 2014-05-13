@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.example.service.ConnectThread;
+//import com.example.service.ConnectThread;
 
 
 import android.app.Activity;
@@ -29,11 +29,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BluetoothActivity extends Activity {
+	
+	private static final String TAG = "DeviceListActivity";
+    private static final boolean D = true;
 	private BluetoothAdapter  BA;
+	public static String EXTRA_DEVICE_ADDRESS = "device_address";
 	private ListView list_bt;
 	private Set<BluetoothDevice>pairedDevices;
 	private  ArrayAdapter<String> btArrayPaired;
-	private  ConnectThread thread;
+	//private  ConnectThread thread;
 	private BroadcastReceiver myReceiver= new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
         	Iterator<BluetoothDevice> it=pairedDevices.iterator();
@@ -130,14 +134,25 @@ protected void onCreate(Bundle savedInstanceState) {
 		            String info = ((TextView) v).getText().toString();
 		            String address = info.substring(info.length() - 17);
 
-					BluetoothDevice device= BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+					//BluetoothDevice device= BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
 					
-					thread=new ConnectThread(getApplicationContext(),device); 
-					thread.start();
+					//Intent intent_ = new Intent();
+		            
+
+		            // Set result and finish this Activity
+		            
+		            Intent intent_start = new Intent(getApplicationContext(), Menuactivity.class);
+		            
+		            // Set result and finish this Activity
+		            
+		         
+		            intent_start.putExtra(EXTRA_DEVICE_ADDRESS, address);
+		            startActivity(intent_start );
+		            finish();
 					
-					Intent register_intent = new Intent( getApplicationContext(), Menuactivity.class );
+					/*Intent register_intent = new Intent( getApplicationContext(), Menuactivity.class );
 		            startActivity( register_intent );
-		            finish();		 
+		            finish();	*/	 
 					
 				}
 
@@ -173,6 +188,16 @@ protected void onCreate(Bundle savedInstanceState) {
 	     super.onStop();
 	 }
 	 
+	 
+	 public void finish() {
+		  // Prepare data intent 
+		  Intent data = new Intent();
+		  data.putExtra("returnKey1", "Swinging on a star. ");
+		  data.putExtra("returnKey2", "You could be better then you are. ");
+		  // Activity finished ok, return the data
+		  setResult(RESULT_OK, data);
+		  super.finish();
+		} 
 	
 }	 
 	
