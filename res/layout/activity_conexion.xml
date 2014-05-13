@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg" >
 
     <Button
         android:id="@+id/btn_connect"
-        android:layout_width="160dp"
-        android:layout_height="94dp"
-        android:layout_x="77dp"
-        android:layout_y="180dp"
-        android:text="Conexion BT"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/height_text_button" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="59dp"
+        android:layout_y="228dp"
+        android:background="@drawable/button"
+        android:text="@string/activatebluetooth"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="262dp"
+        android:layout_height="112dp"
+        android:layout_x="24dp"
+        android:layout_y="88dp"
+        android:text="@string/textobluetooth"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
 </AbsoluteLayout>
+
