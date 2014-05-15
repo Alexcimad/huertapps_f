@@ -23,4 +23,17 @@
     <string name="title_connecting">connecting...</string>
     <string name="title_not_connected">not connected</string>
     <string name="not_connected">You are not connected to a device</string>
+   
+    <string name="activatebluetooth">Activar Bluetooth</string>
+    <string name="textobluetooth">Es necesario activar el Bluetooth para conectarse a su huerta</string>
+    <string name="Regar">Regar</string>
+    <string name="Fertilizar">Fertilizar</string>
+    <string name="Programar">Programar</string> 
+    <string name="Estadisticas">Estadisticas</string>  
+    <string name="Humedad">Humedad:</string>  
+    <string name="Cagua">Cantidad de agua:</string>
+    <string name="Cfertilizante">Cantidad de fertilizante:</string>
+    <string name="bajo">Bajo</string>
+    <string name="alto">Alto</string>
+    <string name="medio">Medio</string>
 </resources>
