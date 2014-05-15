@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.view.View.OnClickListener;
 //import android.bluetooth.BluetoothAdapter;
 //import android.bluetooth.BluetoothDevice;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -43,6 +45,8 @@ public class Menuactivity extends Activity {
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
     private BluetoothAdapter mBluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+    private Button btn_regar;
+    private Button btn_fertilizar;
   private ListView menuListView ;
   private ArrayAdapter<String> listAdapter ;
   private BluetoothService mBTservice;
@@ -64,36 +68,37 @@ public class Menuactivity extends Activity {
 	  //Toast.makeText(getApplicationContext(), "Aplicacion conectada", Toast.LENGTH_SHORT).show(); 			
     
     // Encontrar el ListView
-    menuListView = (ListView) findViewById( R.id.menuListView );
-
-    // Crea la lista con los nombres
-    String[] planets = new String[] { "Regar", "Fertilizar", "Programar", "Estadisticas",
-                                      "Automatizar"};  
-    ArrayList<String> planetList = new ArrayList<String>();
-    planetList.addAll( Arrays.asList(planets) );
     
-    // Create ArrayAdapter usando la lista anterior
-    listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, planetList);
-    
-    
-    // Set the ArrayAdapter as the ListView's adapter.
-    menuListView.setAdapter( listAdapter );      
-    menuListView.setOnItemClickListener(new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> av, View v, int arg2,
-				long arg3) {
-			int msg=1;
-			sendMessage(msg);
-			Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+   
 			
-			
+			btn_regar = (Button) findViewById( R.id.btn_regar );
+			btn_fertilizar=(Button) findViewById( R.id.btn_fertilizar );
+		
+		    
+		    btn_regar.setOnClickListener(new View.OnClickListener() {
+		    	public void onClick(View v) {
+		    	    
+		    		  			Intent register_intent = new Intent( getApplicationContext(), RegarActivity.class );
+		                        startActivity( register_intent );
+		                        finish();
+		                       }
+		    	});		
           
+		    btn_fertilizar.setOnClickListener(new View.OnClickListener() {
+		    	public void onClick(View v) {
+		    	    
+		    		  			Intent register_intent = new Intent( getApplicationContext(), FertilizarActivity.class );
+		                        startActivity( register_intent );
+		                        finish();
+		                       }
+		    	});		
 			//Log.d(TAG, "msg send");
 			
 		}
-    });
+
     
     
-		}
+		
   
   public void onStart() {
       super.onStart();
@@ -111,7 +116,7 @@ public class Menuactivity extends Activity {
           if (mBTservice == null) {
         	  //setupChat();
         
-        	setupChat();
+        	//setupChat();
         	
             String address = data_receive.getExtras()
                     .getString(BluetoothActivity.EXTRA_DEVICE_ADDRESS);
@@ -119,11 +124,11 @@ public class Menuactivity extends Activity {
           	  exist=true;
           	if(exist){*/
             	
-          		if ((mBTservice.getState())!=3){
+          		
           			Log.d(TAG,"tentative_connexion");
-          			connectDevice(data_receive);
+          			//connectDevice(data_receive);
           			
-          		}
+          		
           	//}
         	//}
         	  

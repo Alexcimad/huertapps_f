@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#d8d8d8"
+        android:drawableLeft="@drawable/regar"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="@string/Regar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#9dc404"
+        android:drawableLeft="@drawable/humedad"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="@string/Humedad"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#9dc404"
+        android:drawableLeft="@drawable/cagua"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="@string/Cagua"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btn_altoAgua"
+            style="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:drawablePadding="30dp"
+            android:text="@string/alto"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_medioAgua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:drawablePadding="30dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/medio"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_bajoAgua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:drawablePadding="30dp"
+             android:padding="10dp"
+             android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/bajo"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -383,7 +383,7 @@ public class BluetoothService {
             mmSocket2 = tmp_fall1;
             mmSocket3 = tmp_fall2;
             
-            mmSocket1.accept(3000);
+           // mmSocket1.accept(3000);
         }
 
         public void run() {

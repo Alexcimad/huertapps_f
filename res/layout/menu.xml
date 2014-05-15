@@ -66,7 +66,7 @@
 			        android:id="@+id/btn_regar"
 			        android:layout_width="106dp"
 			        android:layout_height="115dp"
-			        android:background="@drawable/Regar" />
+			        android:background="@drawable/regar" />
 
 			    <TextView
 			        android:layout_width="fill_parent"
@@ -90,7 +90,7 @@
 			        android:id="@+id/btn_fertilizar"
 			        android:layout_width="99dp"
 			        android:layout_height="133dp"
-			        android:background="@drawable/Fertilizar" />
+			        android:background="@drawable/fertilizar" />
 
 			    <TextView
 			        android:layout_width="fill_parent"
@@ -126,7 +126,7 @@
 			        android:layout_width="110dp"
 			        android:layout_height="wrap_content"
 			        android:layout_weight="215.84"
-			        android:background="@drawable/Programar"
+			        android:background="@drawable/programar"
 			        android:padding="20dp" />
 
 			    <TextView
@@ -151,7 +151,7 @@
 		            android:id="@+id/btn_estadisticas"
 		            android:layout_width="79dp"
 		            android:layout_height="75dp"
-		            android:background="@drawable/Estadisticas" />
+		            android:background="@drawable/estadisticas" />
 
 		        <TextView
 		            android:layout_width="fill_parent"
