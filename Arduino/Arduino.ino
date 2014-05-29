@@ -19,141 +19,92 @@
 SoftwareSerial BT(RxD, TxD);
 
 
-int sensorPin = A0; 
-int LedPin=12;// select the input pin for the potentiometer
+int sensorPin = 1;
+int regarPin=12;// select the input pin for the potentiometer
 int humedadSuelo = 0;
 int promedio = 0;
 
 void setup() {
   BT.begin(9600);
-  //BT.println("Bluetooth On please press 1 or 0 blink LED ..");
+  BT.println("B para baja humedad, N para humedad normal, A para alta humedad");
   pinMode(sensorPin,INPUT);
-  pinMode(LedPin,OUTPUT);
+  pinMode(regarPin,OUTPUT);
+  BT.println("Humedad Actual");
+  BT.println(String(pedirHumedadSuelo()));
+  BT.println("0 es seco, 550 es el ideal y 999 es flotando en agua");
 }
 
 void loop() {
-	
-	BT.println(String(pedirHumedadSuelo()));
-	delay(2000);
 
-	char comando = BT.read();
+
+
+char comando = BT.read();
     BT.flush();
 
     //Baja Humedad
-    if (comando == '1'){
-      Serial.println("Comenzando Riego para baja humedad");
-      	promedio = ((secoAlto+secoBajo)/2)-1;
-      	while (promedio < (secoAlto+secoBajo)/2){
-      		regar();
-      		promedio = calcularPromedio();
-      	}
-      regar();
-      Serial.println("terminando Riego para baja humedad");
+    if (comando == 'B'){
+      BT.println("Comenzando Riego para baja humedad");
+       promedio = ((secoAlto+secoBajo)/2)-1;
+       while (promedio < (secoAlto+secoBajo)/2){
+         digitalWrite(regarPin,HIGH);
+       promedio = calcularPromedio();
+      }
+      digitalWrite(regarPin,LOW);
+      BT.println("terminando Riego para baja humedad");
+      BT.println("Humedad Actual");
+      BT.println(String(pedirHumedadSuelo()));
+      BT.println("0 es seco, 550 es el ideal y 999 es flotando en agua");
     }
 
     if (comando == 'N'){
-      Serial.println("Comenzando Riego para humedad normal ");
+      BT.println("Comenzando Riego para humedad normal ");
       promedio = ideal - 1;
       while ( promedio < ideal){
-      		regar();
-      		promedio = calcularPromedio();
-      	}
-      Serial.println("terminando Riego para humedad normal ");
+       digitalWrite(regarPin,HIGH);
+       promedio = calcularPromedio();
+      }
+      digitalWrite(regarPin,LOW);
+      BT.println("terminando Riego para humedad normal ");
+      BT.println("Humedad Actual");
+      BT.println(String(pedirHumedadSuelo()));
+      BT.println("0 es seco, 550 es el ideal y 999 es flotando en agua");
     }
 
     if (comando == 'A'){
-      Serial.println("Comenzando Riego para alta humedad");
+      BT.println("Comenzando Riego para alta humedad");
       promedio = ((mojadoAlto+mojadoBajo)/2)-1;
       while (promedio < (mojadoAlto+mojadoBajo)/2){
-      		regar();
-      		promedio = calcularPromedio();
-      	}
-      Serial.println("terminando Riego para alta humedad");
-	}
+       digitalWrite(regarPin,HIGH);
+       promedio = calcularPromedio();
+      }
+      digitalWrite(regarPin,LOW);
+      BT.println("terminando Riego para alta humedad");
+      BT.println("Humedad Actual");
+      BT.println(String(pedirHumedadSuelo()));
+      BT.println("0 es seco, 550 es el ideal y 999 es flotando en agua");
+}
 }
 
-int pedirHumedadSuelo(){ 
-	return analogRead(sensorPin);
+int pedirHumedadSuelo(){
+return analogRead(sensorPin);
 }
 
 void regar(){
-digitalWrite(LedPin,LOW);
+digitalWrite(regarPin,LOW);
 delay(300);
-digitalWrite(LedPin,HIGH);
+digitalWrite(regarPin,HIGH);
 delay(300);
 }
 
 int calcularPromedio(){
-	int medida = pedirHumedadSuelo();
-	delay (1000); 
-	medida += pedirHumedadSuelo();
-	delay (1000);  
-	medida += pedirHumedadSuelo();
-	delay (1000);  
-	medida += pedirHumedadSuelo();
-	delay (1000);  
-	medida += pedirHumedadSuelo();
-	return medida/ 5;
+int medida = pedirHumedadSuelo();
+delay (1000);
+medida += pedirHumedadSuelo();
+delay (1000);
+medida += pedirHumedadSuelo();
+delay (1000);
+medida += pedirHumedadSuelo();
+delay (1000);
+medida += pedirHumedadSuelo();
+return medida/ 5;
 }
-
-
-
-
-
-// //setTime
-// //0->humedad suelo 
-// //1->humedad relativa
-// //2->temperatura
-// //340 tomas, read write, direccion, byte 0 255
-// //EEPROM 1024 bytes
-// //0 255
-
-
-//   // variable to store the value coming from the sensor
-
-// void setup() {
-//   // declare the ledPin as an OUTPUT:
-//    Serial.begin(9600);  
-// }
-
-// void loop() {
-//   // read the value from the sensor:
-//   sensorValue = analogRead(sensorPin);    
-//   delay(1000);          
-//   Serial.print("sensor = " );                       
-//   Serial.println(sensorValue);                   
-// }
-
-// //rango 0 300 seco, 300 700 humedo, 700 - 950 agua
-
-
-
-
-// #include "DHT.h"
-
-// DHT dht;
-
-// void setup()
-// {
-//   Serial.begin(9600);
-//   Serial.println();
-//   Serial.println("Status\tHumidity (%)\tTemperature (C)\t(F)");
-
-//   dht.setup(2); // data pin 2
-// }
-
-// void loop()
-// {
-//   delay(dht.getMinimumSamplingPeriod());
-
-//   float humidity = dht.getHumidity();
-//   float temperature = dht.getTemperature();
-
-//   Serial.print(dht.getStatusString());
-//   Serial.print("\t");
-//   Serial.print(humidity, 1);
-//   Serial.print("\t\t");
-//   Serial.print(temperature, 1);
-//   Serial.print("\t\t");
-//   Serial.println(dht.toFahrenheit(temperature), 1);
-// }
