@@ -29,8 +29,8 @@ void setup() {
   BT.println("B para baja humedad, N para humedad normal, A para alta humedad");
   pinMode(sensorPin,INPUT);
   pinMode(regarPin,OUTPUT);
-  BT.println("Humedad Actual");
-  BT.println(String(pedirHumedadSuelo()));
+  BT.println("Humedad Actual: "+ String(pedirHumedadSuelo()));
+  //BT.println(String(pedirHumedadSuelo()));
   BT.println("0 es seco, 550 es el ideal y 999 es flotando en agua");
 }
 
